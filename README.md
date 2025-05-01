@@ -1,1 +1,1 @@
-# game-project-docs
+# game-project
