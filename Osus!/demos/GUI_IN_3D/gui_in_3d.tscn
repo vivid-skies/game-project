@@ -1,0 +1,250 @@
+[gd_scene load_steps=15 format=3 uid="uid://0iek6ri88gkb"]
+
+[ext_resource type="Texture2D" uid="uid://bpmkdqhwo18ah" path="res://demos/GUI_IN_3D/icon3.webp" id="2_dj1aq"]
+[ext_resource type="Script" uid="uid://dqbyycntp3lwf" path="res://demos/GUI_IN_3D/gui_3d.gd" id="2_jqdy7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1lgdv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_pq42j"]
+sky_material = SubResource("ProceduralSkyMaterial_1lgdv")
+
+[sub_resource type="Environment" id="Environment_niyks"]
+background_mode = 2
+sky = SubResource("Sky_pq42j")
+tonemap_mode = 4
+
+[sub_resource type="QuadMesh" id="1"]
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wex1i"]
+viewport_path = NodePath("GUIPanel3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x088q"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_wex1i")
+
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(3, 2, 0.1)
+
+[sub_resource type="Animation" id="Animation_vyy0g"]
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:transform")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Transform3D(0.994592, 0, 0.103856, 0, 1, 0, -0.103856, 0, 0.994592, 0.465682, 0, 1.78523), Transform3D(0.962984, 0, -0.269557, 0, 1, 0, 0.269557, 0, 0.962984, -0.462237, 0, 2.41934), Transform3D(0.806599, 0, -0.591098, 0, 1, 0, 0.591098, 0, 0.806599, -1.59502, 0, 2.05358), Transform3D(0.994592, 0, 0.103856, 0, 1, 0, -0.103856, 0, 0.994592, 0.465682, 0, 1.78523)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uw4n0"]
+_data = {
+&"Move_camera": SubResource("Animation_vyy0g")
+}
+
+[sub_resource type="PlaneMesh" id="2"]
+
+[sub_resource type="BoxMesh" id="3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knicw"]
+albedo_color = Color(0.722656, 0.791992, 1, 1)
+roughness = 0.0
+
+[node name="GUIin3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_niyks")
+
+[node name="GUIPanel3D" type="Node3D" parent="."]
+process_mode = 3
+script = ExtResource("2_jqdy7")
+
+[node name="Quad" type="MeshInstance3D" parent="GUIPanel3D"]
+editor_description = "To setup this MeshInstance3D:
+* Set Surface Material Override to a new StandardMaterial3D.
+* At the bottom of the StandardMaterial3D's properties, set \"Local to Scene\" to true.
+* Set the Albedo Texture of StandardMaterial3D to new ViewportTexture and set the Viewport Path.
+* Transparency to Alpha.
+* Shading to Unshaded."
+mesh = SubResource("1")
+surface_material_override/0 = SubResource("StandardMaterial3D_x088q")
+
+[node name="Area3D" type="Area3D" parent="GUIPanel3D/Quad"]
+collision_layer = 2
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GUIPanel3D/Quad/Area3D"]
+shape = SubResource("4")
+
+[node name="SubViewport" type="SubViewport" parent="GUIPanel3D"]
+editor_description = "SubViewport contents can be displayed using a ViewportTexture."
+gui_embed_subwindows = true
+size = Vector2i(560, 360)
+render_target_update_mode = 4
+
+[node name="GUI" type="Control" parent="GUIPanel3D/SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 560.0
+offset_bottom = 360.0
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="GUIPanel3D/SubViewport/GUI"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUIPanel3D/SubViewport/GUI/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 319.0
+offset_bottom = -20.0
+grow_vertical = 2
+theme_override_constants/separation = 13
+
+[node name="Label" type="Label" parent="GUIPanel3D/SubViewport/GUI/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "SubViewport is rendered on Quad"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="GUIPanel3D/SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "A button!"
+
+[node name="LineEdit" type="LineEdit" parent="GUIPanel3D/SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter text here..."
+
+[node name="HSlider" type="HSlider" parent="GUIPanel3D/SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+step = 0.0
+ticks_on_borders = true
+
+[node name="ColorRect" type="ColorRect" parent="GUIPanel3D/SubViewport/GUI/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -182.0
+offset_top = 16.0
+offset_right = -54.0
+offset_bottom = 144.0
+grow_horizontal = 0
+color = Color(1, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="GUIPanel3D/SubViewport/GUI/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -166.0
+offset_top = 32.0
+offset_right = -70.0
+offset_bottom = 128.0
+grow_horizontal = 0
+texture = ExtResource("2_dj1aq")
+expand_mode = 1
+
+[node name="VSlider" type="VSlider" parent="GUIPanel3D/SubViewport/GUI/Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = 16.0
+offset_right = -5.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 2
+step = 0.0
+
+[node name="OptionButton" type="OptionButton" parent="GUIPanel3D/SubViewport/GUI/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -227.0
+offset_top = -208.0
+offset_right = -39.0
+offset_bottom = -147.0
+grow_horizontal = 0
+grow_vertical = 0
+selected = 0
+item_count = 3
+popup/item_0/text = "Item 0"
+popup/item_0/id = 0
+popup/item_1/text = "Item 1"
+popup/item_1/id = 1
+popup/item_2/text = "Item 2"
+popup/item_2/id = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 3)
+fov = 74.0
+near = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38866, 1.2413, 2.72141)
+shadow_enabled = true
+shadow_blur = 3.0
+omni_range = 10.0
+
+[node name="Camera_Move" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uw4n0")
+}
+autoplay = "Move_camera"
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="Wall" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -2.60819, 0.589247, -2.08943)
+mesh = SubResource("2")
+
+[node name="Wall2" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 5.08055, 0.589247, -2.08943)
+mesh = SubResource("2")
+
+[node name="Wall3" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(-1.74846e-07, -4, 0, -1.74846e-07, 7.64274e-15, -4, 4, -1.74846e-07, -1.74846e-07, 9.04446, 0.589247, 1.62058)
+mesh = SubResource("2")
+
+[node name="Floor" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -2.60819, -2.68765, 1.46502)
+mesh = SubResource("2")
+
+[node name="Floor2" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5.08055, -2.68765, 1.46502)
+mesh = SubResource("2")
+
+[node name="Cube" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25901, -0.598608, 0.374871)
+mesh = SubResource("3")
+surface_material_override/0 = SubResource("StandardMaterial3D_knicw")
+
+[node name="Cube2" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.88761, 2.01326, 0.374871)
+mesh = SubResource("3")
+surface_material_override/0 = SubResource("StandardMaterial3D_knicw")
