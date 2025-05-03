@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dksrc254ficq5"]
 
 [ext_resource type="Script" uid="uid://dqbyycntp3lwf" path="res://demos/GUI_IN_3D/gui_3d.gd" id="1_d52sk"]
-[ext_resource type="Script" uid="uid://cnkued2qpl67h" path="res://scenes/Container.gd" id="1_nqr1n"]
+[ext_resource type="Script" uid="uid://cc88gvdwf0jla" path="res://scenes/Main.gd" id="1_svoro"]
 [ext_resource type="PackedScene" uid="uid://bmvpp11v5t5q2" path="res://demos/UI_Template.tscn" id="3_nqr1n"]
 [ext_resource type="PackedScene" uid="uid://b5coqo172wx6d" path="res://scenes/UI/Home/home_ui.tscn" id="3_svoro"]
 
@@ -56,7 +56,7 @@ albedo_texture = SubResource("ViewportTexture_svoro")
 size = Vector3(3, 2, 0.1)
 
 [node name="Container" type="Node3D"]
-script = ExtResource("1_nqr1n")
+script = ExtResource("1_svoro")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

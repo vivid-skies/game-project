@@ -45,12 +45,12 @@ func _process(_delta: float) -> void:
 
 func _on_mouse_entered(button: TextureButton) -> void:
 	hoverSound.play()
-	button.custom_minimum_size = Vector2(24, 24)
+	button.custom_minimum_size = Vector2(26, 26)
 	button.mouse_default_cursor_shape = pointingHand
 	# print("Mouse Entered")
 
 func _on_mouse_exited(button: TextureButton) -> void:
-	button.custom_minimum_size = Vector2(20, 20)
+	button.custom_minimum_size = Vector2(24, 24)
 	button.mouse_default_cursor_shape = arrow
 	# print("Mouse Exited")
 

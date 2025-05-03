@@ -71,7 +71,7 @@ alignment = 1
 script = ExtResource("4_0dmlf")
 
 [node name="PlayPreviousButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -81,7 +81,7 @@ stretch_mode = 5
 flip_h = true
 
 [node name="PlayButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -90,7 +90,7 @@ texture_normal = ExtResource("4_fhy6d")
 stretch_mode = 5
 
 [node name="PauseButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -99,7 +99,7 @@ texture_normal = ExtResource("6_afjs6")
 stretch_mode = 5
 
 [node name="StopButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -108,7 +108,7 @@ texture_normal = ExtResource("7_0dmlf")
 stretch_mode = 5
 
 [node name="PlayNextButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -117,7 +117,7 @@ texture_normal = ExtResource("4_iwx08")
 stretch_mode = 5
 
 [node name="SongMenuButton" type="TextureButton" parent="Panel/Audio Playback"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
