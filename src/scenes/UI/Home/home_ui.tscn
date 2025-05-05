@@ -1,0 +1,232 @@
+[gd_scene load_steps=17 format=3 uid="uid://b5coqo172wx6d"]
+
+[ext_resource type="StyleBox" uid="uid://dv7dtalm8epnq" path="res://styles/panelBg.tres" id="1_kyoq8"]
+[ext_resource type="AudioStream" uid="uid://cxlpy48dulnn1" path="res://src/assets/audio/click-short-confirm.ogg" id="1_xspil"]
+[ext_resource type="Script" uid="uid://c3nxhxg2educm" path="res://src/scenes/UI/Home/home_buttons.gd" id="2_2bt30"]
+[ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://src/scenes/UI/FPS Counter/fps_container.tscn" id="2_2h7xb"]
+[ext_resource type="AudioStream" uid="uid://dtno32hu3ad5x" path="res://src/assets/audio/click-short.ogg" id="2_38ffw"]
+[ext_resource type="Theme" uid="uid://d0coxnbp21jt" path="res://styles/menu_button.tres" id="2_a8s70"]
+[ext_resource type="Script" uid="uid://dg7ltg8lvyk61" path="res://src/scenes/UI/Home/audio_playback.gd" id="4_0dmlf"]
+[ext_resource type="AudioStream" uid="uid://bmskk6ct5ayyj" path="res://src/assets/audio/menuhit.ogg" id="4_0re3e"]
+[ext_resource type="AudioStream" uid="uid://dg4c2wt4i0of6" path="res://src/assets/audio/menuclick.ogg" id="4_4c2iy"]
+[ext_resource type="Texture2D" uid="uid://dyietxedi4wjl" path="res://src/assets/textures/Icons/MainPlay.svg" id="4_fhy6d"]
+[ext_resource type="Texture2D" uid="uid://clsvuk0kjhlfy" path="res://src/assets/textures/Icons/NextFrame.svg" id="4_iwx08"]
+[ext_resource type="Texture2D" uid="uid://by1w6425ekfs6" path="res://src/assets/textures/Icons/Pause.svg" id="6_afjs6"]
+[ext_resource type="Texture2D" uid="uid://bbl5fawil4s8v" path="res://src/assets/textures/Icons/Stop.svg" id="7_0dmlf"]
+[ext_resource type="Texture2D" uid="uid://cwgnbe8ira1kw" path="res://src/assets/textures/Icons/TripleBar.svg" id="8_afjs6"]
+
+[sub_resource type="Environment" id="Environment_a8s70"]
+glow_enabled = true
+glow_intensity = 1.0
+glow_bloom = 0.6
+
+[sub_resource type="LabelSettings" id="LabelSettings_2bt30"]
+line_spacing = 0.0
+font_size = 140
+shadow_size = 0
+
+[node name="Home UI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="AudioPlayerClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("1_xspil")
+volume_db = -2.0
+
+[node name="AudioPlayerHover" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_38ffw")
+
+[node name="MenuClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_0re3e")
+
+[node name="MenuHover" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_4c2iy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a8s70")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_kyoq8")
+
+[node name="Audio Playback" type="BoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_constants/separation = 5
+alignment = 1
+script = ExtResource("4_0dmlf")
+
+[node name="PlayPreviousButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_iwx08")
+stretch_mode = 5
+flip_h = true
+
+[node name="PlayButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_fhy6d")
+stretch_mode = 5
+
+[node name="PauseButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_afjs6")
+stretch_mode = 5
+
+[node name="StopButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("7_0dmlf")
+stretch_mode = 5
+
+[node name="PlayNextButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_iwx08")
+stretch_mode = 5
+
+[node name="SongMenuButton" type="TextureButton" parent="Panel/Audio Playback"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_afjs6")
+stretch_mode = 5
+
+[node name="FPS Container" parent="Panel" instance=ExtResource("2_2h7xb")]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 95.0
+offset_bottom = 55.0
+
+[node name="Main Container" type="BoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.0
+offset_top = -220.5
+offset_right = 153.0
+offset_bottom = 220.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Main Container"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="Game_Title" type="Label" parent="Panel/Main Container/MarginContainer"]
+self_modulate = Color(1.2, 1.2, 1.2, 1)
+layout_mode = 2
+text = "Osu!"
+label_settings = SubResource("LabelSettings_2bt30")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button_Container" type="VBoxContainer" parent="Panel/Main Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+script = ExtResource("2_2bt30")
+
+[node name="Start Button" type="Button" parent="Panel/Main Container/Button_Container"]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_a8s70")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Main Container/Button_Container/Start Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+bbcode_enabled = true
+text = "[font_size=32][b]START[/b][/font_size]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Settings Button" type="Button" parent="Panel/Main Container/Button_Container"]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Main Container/Button_Container/Settings Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+bbcode_enabled = true
+text = "[font_size=32][b]SETTINGS[/b][/font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit Button" type="Button" parent="Panel/Main Container/Button_Container"]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Main Container/Button_Container/Quit Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+bbcode_enabled = true
+text = "[font_size=32][b]QUIT[/b][/font_size]"
+horizontal_alignment = 1
+vertical_alignment = 1
