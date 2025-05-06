@@ -2,18 +2,18 @@ extends Node3D
 
 
 var OsuLibNode: PackedScene = preload("res://OsuLib/OsuLib.tscn")
-var BeatmapParserScript: Resource = preload("res://OsuLib/GDScript Conversion/temp/BeatmapParser.gd")
+# var Beatmap: RefCounted = preload("res://OsuLib/GDScript Conversion/Beatmap.gd")
 # var OsuLib: Node = null
 
 var oszExample: String = ProjectSettings.globalize_path("res://bin/imported/482090 9mm Parabellum Bullet - Inferno.osz")
 var importedDirPath: String = ProjectSettings.globalize_path("res://bin/imported")
 
-var beatmap: Dictionary = {
+var beatmap_info: Dictionary = {
 	dir = "res://bin/processed/482090 9mm Parabellum Bullet - Inferno",
 	file_name = "9mm Parabellum Bullet - Inferno (Monstrata) [Agonizing Insane]"
 }
 
-var beatmap_to_parse: String = beatmap["dir"] + "/" + beatmap["file_name"] + ".osu"
+var beatmap_to_parse: String = beatmap_info["dir"] + "/" + beatmap_info["file_name"] + ".osu"
 
 ## Camera idle scale effect intensity.
 const CAMERA_IDLE_SCALE = 0.005
@@ -22,8 +22,8 @@ var counter := 0.0
 @onready var camera_base_rotation: Vector3 = $Camera3D.rotation
 
 func _ready() -> void:
-	# OsuLib.ImportOsz(oszExample)
-	BeatmapParserScript.decode(beatmap_to_parse)
+	var beatmap: Beatmap = Beatmap.new()
+	beatmap.decode(beatmap_to_parse)
 
 
 

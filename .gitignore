@@ -1,8 +1,9 @@
 # Godot 4+ specific ignores
-.godot
+*.godot
 android
 exports
 bin
 demos
-.env
-.vscode
+*.env
+*.vscode
+*.uid

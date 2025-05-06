@@ -1,6 +1,21 @@
 class_name Enums
 
 # Enums for Beatmap Parsing
+enum Section {
+	FORMAT,
+	GENERAL,
+	EDITOR,
+	METADATA,
+	DIFFICULTY,
+	EVENTS,
+	TIMINGPOINTS,
+	COLOURS,
+	HITOBJECTS,
+	FONTS,
+	CATCHTHEBEAT,
+	MANIA,
+}
+
 enum Countdown {
 	NONE,
 	NORMAL,
