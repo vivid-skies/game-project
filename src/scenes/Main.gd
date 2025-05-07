@@ -24,6 +24,7 @@ var counter := 0.0
 func _ready() -> void:
 	var beatmap: Beatmap = Beatmap.new()
 	beatmap.decode(beatmap_to_parse)
+	beatmap.test()
 
 
 

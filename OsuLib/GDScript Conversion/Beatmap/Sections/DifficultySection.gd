@@ -1,5 +1,4 @@
-class_name BeatmapDifficultySection
-extends Beatmap
+class_name IBeatmapDifficulty
 
 
 var hp_drain_rate: float

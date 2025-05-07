@@ -1,0 +1,143 @@
+[gd_scene load_steps=15 format=3 uid="uid://dksrc254ficq5"]
+
+[ext_resource type="Script" uid="uid://dqbyycntp3lwf" path="res://bin/demos/GUI_IN_3D/gui_3d.gd" id="1_d52sk"]
+[ext_resource type="Script" uid="uid://cc88gvdwf0jla" path="res://src/scenes/Main.gd" id="1_svoro"]
+[ext_resource type="PackedScene" uid="uid://bmvpp11v5t5q2" path="res://bin/demos/UI_Template.tscn" id="3_nqr1n"]
+[ext_resource type="PackedScene" uid="uid://b5coqo172wx6d" path="res://src/scenes/UI/Home/home_ui.tscn" id="3_svoro"]
+
+[sub_resource type="Animation" id="Animation_vyy0g"]
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:transform")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Transform3D(0.994592, 0, 0.103856, 0, 1, 0, -0.103856, 0, 0.994592, 0.465682, 0, 1.78523), Transform3D(0.962984, 0, -0.269557, 0, 1, 0, 0.269557, 0, 0.962984, -0.462237, 0, 2.41934), Transform3D(0.806599, 0, -0.591098, 0, 1, 0, 0.591098, 0, 0.806599, -1.59502, 0, 2.05358), Transform3D(0.994592, 0, 0.103856, 0, 1, 0, -0.103856, 0, 0.994592, 0.465682, 0, 1.78523)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uw4n0"]
+_data = {
+&"Move_camera": SubResource("Animation_vyy0g")
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1lgdv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_pq42j"]
+sky_material = SubResource("ProceduralSkyMaterial_1lgdv")
+
+[sub_resource type="Environment" id="Environment_niyks"]
+background_mode = 2
+sky = SubResource("Sky_pq42j")
+tonemap_mode = 4
+
+[sub_resource type="PlaneMesh" id="2"]
+
+[sub_resource type="QuadMesh" id="1"]
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_svoro"]
+viewport_path = NodePath("GUIPanel3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wqp"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_svoro")
+
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(3, 2, 0.1)
+
+[node name="Container" type="Node3D"]
+script = ExtResource("1_svoro")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+fov = 60.0
+
+[node name="Camera_Move" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uw4n0")
+}
+
+[node name="Environment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38866, 1.2413, 2.72141)
+shadow_enabled = true
+shadow_blur = 3.0
+omni_range = 10.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_niyks")
+
+[node name="Background" type="Node3D" parent="Environment"]
+
+[node name="Wall" type="MeshInstance3D" parent="Environment/Background"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -2.60819, 0.589247, -2.08943)
+mesh = SubResource("2")
+
+[node name="Wall2" type="MeshInstance3D" parent="Environment/Background"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 5.08055, 0.589247, -2.08943)
+mesh = SubResource("2")
+
+[node name="Wall3" type="MeshInstance3D" parent="Environment/Background"]
+transform = Transform3D(-1.74846e-07, -4, 0, -1.74846e-07, 7.64274e-15, -4, 4, -1.74846e-07, -1.74846e-07, 9.04446, 0.589247, 1.62058)
+mesh = SubResource("2")
+
+[node name="Floor" type="MeshInstance3D" parent="Environment/Background"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -2.60819, -2.68765, 1.46502)
+mesh = SubResource("2")
+
+[node name="Floor2" type="MeshInstance3D" parent="Environment/Background"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5.08055, -2.68765, 1.46502)
+mesh = SubResource("2")
+
+[node name="GUIPanel3D" type="Node3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55173)
+visible = false
+script = ExtResource("1_d52sk")
+
+[node name="Quad" type="MeshInstance3D" parent="GUIPanel3D"]
+editor_description = "To setup this MeshInstance3D:
+* Set Surface Material Override to a new StandardMaterial3D.
+* At the bottom of the StandardMaterial3D's properties, set \"Local to Scene\" to true.
+* Set the Albedo Texture of StandardMaterial3D to new ViewportTexture and set the Viewport Path.
+* Transparency to Alpha.
+* Shading to Unshaded."
+mesh = SubResource("1")
+surface_material_override/0 = SubResource("StandardMaterial3D_72wqp")
+
+[node name="Area3D" type="Area3D" parent="GUIPanel3D/Quad"]
+collision_layer = 2
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GUIPanel3D/Quad/Area3D"]
+shape = SubResource("4")
+
+[node name="SubViewport" type="SubViewport" parent="GUIPanel3D"]
+editor_description = "SubViewport contents can be displayed using a ViewportTexture."
+gui_embed_subwindows = true
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="UI Template" parent="GUIPanel3D/SubViewport" instance=ExtResource("3_nqr1n")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Home UI" parent="CanvasLayer" instance=ExtResource("3_svoro")]

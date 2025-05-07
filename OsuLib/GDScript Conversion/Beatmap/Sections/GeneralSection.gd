@@ -1,5 +1,5 @@
-class_name BeatmapGeneralSection
-extends Beatmap
+class_name IBeatmapGeneral
+
 
 var audio_file_name: String = ""
 var audio_lead_in: int = 0

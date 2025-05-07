@@ -1,5 +1,5 @@
-class_name BeatmapMetadataSection
-extends Beatmap
+class_name IBeatmapMetadata
+
 
 var title: String
 var title_unicode: String

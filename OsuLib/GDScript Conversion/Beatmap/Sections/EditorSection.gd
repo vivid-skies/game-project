@@ -1,5 +1,4 @@
-class_name BeatmapEditorSection
-extends Beatmap
+class_name IBeatmapEditor
 
 
 var bookmarks: Array[int]

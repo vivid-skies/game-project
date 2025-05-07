@@ -7,3 +7,4 @@ demos
 *.env
 *.vscode
 *.uid
+*.gd.uid
