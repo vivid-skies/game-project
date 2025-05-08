@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bx8x040gpgrfu"
+path="res://.godot/imported/audio.mp3-b1d6fb504efd92b4fb0f5de3ee53426e.mp3str"
+
+[deps]
+
+source_file="res://bin/processed/1381405 USAO - Cthugha/audio.mp3"
+dest_files=["res://.godot/imported/audio.mp3-b1d6fb504efd92b4fb0f5de3ee53426e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

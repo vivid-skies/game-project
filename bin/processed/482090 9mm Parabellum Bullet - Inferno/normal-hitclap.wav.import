@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d4eg8rjwl3few"
+path="res://.godot/imported/normal-hitclap.wav-608bd7737670a5b2e5fd177998893a6d.sample"
+
+[deps]
+
+source_file="res://bin/processed/482090 9mm Parabellum Bullet - Inferno/normal-hitclap.wav"
+dest_files=["res://.godot/imported/normal-hitclap.wav-608bd7737670a5b2e5fd177998893a6d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

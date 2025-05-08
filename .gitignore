@@ -1,10 +1,9 @@
 # Godot 4+ specific ignores
 *.godot
-android
-exports
-bin
-demos
+android/
+*exports/
+*assets/
 *.env
-*.vscode
+*.vscode/
 *.uid
 *.gd.uid

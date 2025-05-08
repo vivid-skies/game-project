@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c0x3p70ar5flj"
+path="res://.godot/imported/normal-hitfinish.wav-c93280501b5c9f28cae91a2c3b1f08ad.sample"
+
+[deps]
+
+source_file="res://bin/processed/482090 9mm Parabellum Bullet - Inferno/normal-hitfinish.wav"
+dest_files=["res://.godot/imported/normal-hitfinish.wav-c93280501b5c9f28cae91a2c3b1f08ad.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

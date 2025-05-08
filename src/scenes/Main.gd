@@ -22,11 +22,27 @@ var counter := 0.0
 @onready var camera_base_rotation: Vector3 = $Camera3D.rotation
 
 func _ready() -> void:
-	OsuLib.ImportOsz(oszExample)
 	var beatmap: Beatmap = Beatmap.new()
 	beatmap.decode(beatmap_to_parse)
-	beatmap.test()
-
+	# beatmap.general.print_data()
+	# beatmap.editor.print_data()
+	# beatmap.metadata.print_data()
+	# beatmap.difficulty.print_data()
+	# for event in beatmap.background_events:
+	# 	event.print_data()
+	# for event in beatmap.video_events:
+	# 	event.print_data()
+	# for event in beatmap.break_events:
+	# 	event.print_data()
+	# for timing_point in beatmap.timing_points:
+	# 	timing_point.print_data()
+	for combo in beatmap.combo_colours:
+		combo.print_data()
+	# beatmap.slider_track_override.print_data()
+	# beatmap.slider_border.print_data()
+	# for hit_object in beatmap.hit_objects:
+	# 	hit_object.print_data()
+	print(beatmap.hit_objects.size())
 
 
 

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dul8pee2at2u6"
+path="res://.godot/imported/soft-hitnormal.wav-790d727dd47afb86e052f9a473f4108a.sample"
+
+[deps]
+
+source_file="res://bin/processed/1381405 USAO - Cthugha/soft-hitnormal.wav"
+dest_files=["res://.godot/imported/soft-hitnormal.wav-790d727dd47afb86e052f9a473f4108a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

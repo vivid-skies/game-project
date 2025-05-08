@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://brybkmb58ujx1"
+path="res://.godot/imported/audio.mp3-51fd9f82b969e4d1a3f5ceb47c599435.mp3str"
+
+[deps]
+
+source_file="res://bin/processed/482090 9mm Parabellum Bullet - Inferno/audio.mp3"
+dest_files=["res://.godot/imported/audio.mp3-51fd9f82b969e4d1a3f5ceb47c599435.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

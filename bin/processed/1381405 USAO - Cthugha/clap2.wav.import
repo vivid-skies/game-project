@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q57ndwadveo5"
+path="res://.godot/imported/clap2.wav-978eeab8620a5b27fdc651429e64e474.sample"
+
+[deps]
+
+source_file="res://bin/processed/1381405 USAO - Cthugha/clap2.wav"
+dest_files=["res://.godot/imported/clap2.wav-978eeab8620a5b27fdc651429e64e474.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

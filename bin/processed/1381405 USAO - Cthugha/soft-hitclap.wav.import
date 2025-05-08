@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dtf16h323b7w3"
+path="res://.godot/imported/soft-hitclap.wav-804d541fd625471666072a18731b9fcf.sample"
+
+[deps]
+
+source_file="res://bin/processed/1381405 USAO - Cthugha/soft-hitclap.wav"
+dest_files=["res://.godot/imported/soft-hitclap.wav-804d541fd625471666072a18731b9fcf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
