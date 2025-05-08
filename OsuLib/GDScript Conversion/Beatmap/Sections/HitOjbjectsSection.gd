@@ -18,7 +18,8 @@ class HitSample:
 
 
 class HitCircle extends IBeatmapHitObjects:
-	pass
+	func _init() -> void:
+		self.type = Enums.HitObject.CIRCLE
 
 
 class Sliders extends IBeatmapHitObjects:
@@ -27,19 +28,25 @@ class Sliders extends IBeatmapHitObjects:
 	var length: float
 	var edge_sounds: PackedInt64Array
 	var edge_sets: EdgeSet
+	func _init() -> void:
+		self.type = Enums.HitObject.SLIDER
+		
+
+class Spinner extends IBeatmapHitObjects:
+	var end_time: int
+	func _init() -> void:
+		self.type = Enums.HitObject.SPINNER
+		x = 256
+		y = 192
 
 
+# Taiko Stuff
 class EdgeSet:
 	var normal_set: Enums.HitSample
 	var addition_set: Enums.HitSample
 
 
-class Spinner extends IBeatmapHitObjects:
-	var end_time: int
-	func _init() -> void:
-		x = 256
-		y = 192
 
-
+# Mania stuff
 class Holds extends IBeatmapHitObjects:
 	pass

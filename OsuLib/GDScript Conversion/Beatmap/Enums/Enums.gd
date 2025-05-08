@@ -52,7 +52,7 @@ enum Effect {
 }
 
 enum HitObject {
-	HIT_CIRCLE,
+	CIRCLE,
 	SLIDER,
 	NEW_COMBO,
 	SPINNER,

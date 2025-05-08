@@ -22,6 +22,7 @@ var counter := 0.0
 @onready var camera_base_rotation: Vector3 = $Camera3D.rotation
 
 func _ready() -> void:
+	OsuLib.ImportOsz(oszExample)
 	var beatmap: Beatmap = Beatmap.new()
 	beatmap.decode(beatmap_to_parse)
 	beatmap.test()

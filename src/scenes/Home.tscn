@@ -1,8 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://dksrc254ficq5"]
+[gd_scene load_steps=13 format=3 uid="uid://dksrc254ficq5"]
 
-[ext_resource type="Script" uid="uid://dqbyycntp3lwf" path="res://bin/demos/GUI_IN_3D/gui_3d.gd" id="1_d52sk"]
 [ext_resource type="Script" uid="uid://cc88gvdwf0jla" path="res://src/scenes/Main.gd" id="1_svoro"]
-[ext_resource type="PackedScene" uid="uid://bmvpp11v5t5q2" path="res://bin/demos/UI_Template.tscn" id="3_nqr1n"]
 [ext_resource type="PackedScene" uid="uid://b5coqo172wx6d" path="res://src/scenes/UI/Home/home_ui.tscn" id="3_svoro"]
 
 [sub_resource type="Animation" id="Animation_vyy0g"]
@@ -110,7 +108,6 @@ mesh = SubResource("2")
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55173)
 visible = false
-script = ExtResource("1_d52sk")
 
 [node name="Quad" type="MeshInstance3D" parent="GUIPanel3D"]
 editor_description = "To setup this MeshInstance3D:
@@ -134,8 +131,6 @@ editor_description = "SubViewport contents can be displayed using a ViewportText
 gui_embed_subwindows = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
-
-[node name="UI Template" parent="GUIPanel3D/SubViewport" instance=ExtResource("3_nqr1n")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

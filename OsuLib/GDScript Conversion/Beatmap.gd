@@ -12,8 +12,8 @@ var metadata: IBeatmapMetadata = IBeatmapMetadata.new()
 var difficulty: IBeatmapDifficulty = IBeatmapDifficulty.new()
 var events: IBeatmapEvents = IBeatmapEvents.new()
 var timing_points: IBeatmapTimingPoints = IBeatmapTimingPoints.new()
-var colours: IBeatmapColours = IBeatmapColours.new()
-var hit_objects: IBeatmapHitObjects = IBeatmapHitObjects.new()
+var colours: Array[IBeatmapColours] = []
+var hit_objects: Array[IBeatmapHitObjects] = []
 
 var dict: Dictionary[int, String] = {
 	2: "3",
@@ -141,8 +141,22 @@ func decode(p_file: String) -> void:
 
 				for i in section_data.size():
 					section_data[i] = section_data[i].strip_edges()
-			
-				match section_data[0].to_int() as Enums.Event:
+				
+				var event_type: Enums.Event
+
+				if section_data[0] is String:
+					if section_data[0] == "VIDEO":
+						event_type = Enums.Event.VIDEO
+					elif section_data[0] == "BACKGROUND":
+						event_type = Enums.Event.BACKGROUND
+					elif section_data[0] == 'BREAK':
+						event_type = Enums.Event.BREAK
+					else:
+						push_error("Unsupposed event type ", section_data[0])
+						print(section_data)
+						continue
+
+				match event_type:
 					Enums.Event.BACKGROUND:
 						if section_data.size() > 5:
 							push_error("Array size of background section exceeds 6 please review Beatmap.gd source")
@@ -150,10 +164,10 @@ func decode(p_file: String) -> void:
 							continue							
 						
 						var background_event: IBeatmapEvents.Background = IBeatmapEvents.Background.new()
-						background_event.start_time = section_data[1] as int
-						background_event.file_name = section_data[2] as String
-						background_event.x_offset = section_data[3] as int
-						background_event.y_offset = section_data[4] as int
+						self.background_event.start_time = section_data[1] as int
+						self.background_event.file_name = section_data[2] as String
+						self.background_event.x_offset = section_data[3] as int
+						self.background_event.y_offset = section_data[4] as int
 						self.events.background_events.append(background_event)
 
 					Enums.Event.VIDEO:
@@ -163,10 +177,10 @@ func decode(p_file: String) -> void:
 							continue	
 						
 						var video_event: IBeatmapEvents.Video = IBeatmapEvents.Video.new()
-						video_event.start_time = section_data[1] as int
-						video_event.file_name = section_data[2] as String
-						video_event.x_offset = section_data[3] as int
-						video_event.y_offset = section_data[4] as int
+						self.video_event.start_time = section_data[1] as int
+						self.video_event.file_name = section_data[2] as String
+						self.video_event.x_offset = section_data[3] as int
+						self.video_event.y_offset = section_data[4] as int
 						self.events.video_events.append(video_event)
 
 					Enums.Event.BREAK:
@@ -175,8 +189,8 @@ func decode(p_file: String) -> void:
 							print(section_data)
 							continue							
 						var break_event: IBeatmapEvents.Break = IBeatmapEvents.Break.new()
-						break_event.start_time = section_data[1] as int
-						break_event.end_time = section_data[2] as int
+						self.break_event.start_time = section_data[1] as int
+						self.break_event.end_time = section_data[2] as int
 						self.events.break_events.append(break_event)
 
 					Enums.Event.STORYBOARD:
@@ -185,14 +199,84 @@ func decode(p_file: String) -> void:
 							continue
 
 			Enums.Section.TIMINGPOINTS:
-				parse_timing_points()
-				pass
+				section_data = line.split(',')
+
+				if section_data.size() > 8:
+					push_error("Array size of timing points section exceeds 8, please review Beatmap.gd source")
+					print(section_data)
+					continue				
+				
+				for i in section_data.size():
+					section_data[i] = section_data[i].strip_edges()
+
+				self.timing_points.time = section_data[0] as int
+				self.timing_points.beat_length = section_data[1] as float
+				self.timing_points.meter = section_data[2] as int
+				self.timing_points.sample_set = section_data[3].to_int() as Enums.SampleSet
+				self.timing_points.sample_index = section_data[4] as int
+				self.timing_points.volume = section_data[5] as int
+				self.timing_points.uninherited = section_data[6] as bool
+				self.timing_points.effects = section_data[7].to_int() as Enums.Effect
+
 			Enums.Section.COLOURS:
-				parse_colours()
-				pass
+				var colour_obj: IBeatmapColours = IBeatmapColours.new()
+
+				section_data = line.split(':')
+
+				if section_data.size() > 3:
+					push_error("Array size of colours section exceeds 3, please review Beatmap.gd source")
+					print(section_data)
+					continue				
+				
+				for i in section_data.size():
+					section_data[i] = section_data[i].strip_edges()
+				
+
 			Enums.Section.HITOBJECTS:
-				parse_hit_objects()
-				pass
+				var hit_object: IBeatmapHitObjects = IBeatmapHitObjects.new()
+				var hit_object_type: Enums.HitObject
+				
+				section_data = line.split(',')
+				
+				if section_data.size() > 7:
+					push_error("Array size of hit objects section exceeds 7, please review Beatmap.gd source")
+					print(section_data)
+					continue
+				
+				for i in section_data.size():
+					section_data[i] = section_data[i].strip_edges()
+				
+				hit_object_type = section_data[0].to_int() as Enums.HitObject
+				
+				match hit_object_type:
+					Enums.HitObject.CIRCLE:
+						var slider: IBeatmapHitObjects.HitCircle = IBeatmapHitObjects.HitCircle.new()
+						match section_data[5]:
+							"L": # Linear Curve
+								
+								pass
+							"P": # Perfect Circle
+								pass
+							"B": # Bezier
+								pass
+							"C": # Centripetal (LEGACY)
+								pass
+						slider.curve_type = section_data[5] 
+						pass
+					Enums.HitObject.SLIDER:
+						pass
+					Enums.HitObject.SPINNER:
+						pass				
+				hit_object.x = section_data[0] as int
+				hit_object.y = section_data[1] as int
+				hit_object.time = section_data[2] as int
+				hit_object.type = section_data[3].to_int() as Enums.HitObject
+				hit_object.hit_sound = section_data[4].to_int() as Enums.HitSound
+				
+
+				
+
+
 
 		# print(format_string % Enums.Section.find_key(current_section))
 

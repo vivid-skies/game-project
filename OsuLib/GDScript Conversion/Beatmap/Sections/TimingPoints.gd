@@ -8,4 +8,4 @@ var sample_set: Enums.SampleSet = Enums.SampleSet.NONE
 var sample_index: int
 var volume: int = 100
 var uninherited: bool
-var effect: Enums.Effect
+var effects: Enums.Effect
