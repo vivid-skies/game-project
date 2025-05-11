@@ -14,10 +14,14 @@ config/name="Osus!"
 run/main_scene="uid://dksrc254ficq5"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 
+[audio]
+
+buses/default_bus_layout="res://scenes/bus_config.tres"
+
 [autoload]
 
-OsuLib="*res://OsuLib/OsuLib.cs"
-KeyPersistence="*res://src/scenes/UI/Settings/KeyPersistence.gd"
+KeyPersistence="*res://scenes/UI/Settings/KeyPersistence.gd"
+OsuLib="*res://OsuLib/OsuLib.gd"
 
 [debug]
 

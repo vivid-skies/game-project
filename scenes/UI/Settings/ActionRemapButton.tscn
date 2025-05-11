@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy6kmby6mupvv"]
+
+[ext_resource type="Script" uid="uid://dkj0ucmudy0w4" path="res://scenes/UI/Settings/ActionRemapButton.gd" id="1"]
+
+[node name="ActionRemapButton" type="Button"]
+offset_right = 90.0
+offset_bottom = 30.0
+toggle_mode = true
+script = ExtResource("1")

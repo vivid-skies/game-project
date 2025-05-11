@@ -1,0 +1,235 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba28dtb4iao1w"]
+
+[ext_resource type="Script" uid="uid://bncw0olqfyh7i" path="res://scenes/game.gd" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://c52mgpn2op17n" path="res://scenes/control.gd" id="2_78awf"]
+[ext_resource type="Script" uid="uid://dk0tfrjqtjxhk" path="res://scenes/music_volume_slider.gd" id="3_cpr0p"]
+[ext_resource type="Texture2D" uid="uid://b6arth0u5puur" path="res://assets/images/black_circle.png" id="3_s0nni"]
+[ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://scenes/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
+bg_color = Color(0, 0, 0, 0.176471)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ibkli")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Background"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_400sg")
+
+[node name="AudioVisualiser" type="Control" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_78awf")
+audio_bus = "Audio Visualiser"
+
+[node name="CircleBase" type="TextureRect" parent="Background/Panel/AudioVisualiser"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7, 7)
+texture = ExtResource("3_s0nni")
+expand_mode = 1
+
+[node name="Right" type="Control" parent="Background/Panel/AudioVisualiser/CircleBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bottom" type="Control" parent="Background/Panel/AudioVisualiser/CircleBase/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="BoxContainer" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -1.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect2" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect3" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect4" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect5" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect6" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect7" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect8" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect9" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect10" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect11" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect12" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect13" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect14" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect15" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect16" type="ColorRect" parent="Background/Panel/AudioVisualiser/CircleBase/Right/Bottom/Container"]
+custom_minimum_size = Vector2(2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FPS Container" parent="Background/Panel" instance=ExtResource("9_kyk2p")]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 95.0
+offset_bottom = 55.0
+
+[node name="VolumeContainer" type="BoxContainer" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -335.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+vertical = true
+
+[node name="music_volume" type="Label" parent="Background/Panel/VolumeContainer"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="Background/Panel/VolumeContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="volume_label" type="Label" parent="Background/Panel/VolumeContainer/BoxContainer"]
+layout_mode = 2
+text = "0%"
+
+[node name="volume_slider" type="VSlider" parent="Background/Panel/VolumeContainer/BoxContainer" node_paths=PackedStringArray("volume_label")]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_cpr0p")
+bus_name = "Music"
+volume_label = NodePath("../volume_label")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Node"]
+unique_name_in_owner = true
+process_mode = 3
+volume_db = -5.0
+bus = &"Music"

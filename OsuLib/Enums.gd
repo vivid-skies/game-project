@@ -1,0 +1,91 @@
+
+enum Event { 
+	BACKGROUND, 
+	VIDEO, 
+	BREAK, 
+	STORYBOARD 
+	}
+
+enum Effect {
+	NONE, 
+	KIAI, 
+	OMIT_FIRST_BAR_LINE = 8,
+}
+
+enum HitObject {
+	NONE,
+	CIRCLE,
+	SLIDER,
+	NEW_COMBO,
+	SPINNER,
+	ONE_SKIP,
+	TWO_SKIP,
+	THREE_SKIP,
+	MANIA_HOLD,
+}
+
+enum Countdown {
+	NONE,
+	NORMAL,
+	HALF,
+	DOUBLE,
+}
+
+enum CurveType {
+	BEZIER,
+	CENTRIPETAL,
+	CATMULL_ROM, # DEPRECATED
+	LINEAR,
+	PERFECT_CIRCLE
+}
+
+enum HitSample {
+	NONE,
+	NORMAL,
+	SOFT,
+	DRUM,
+}
+
+enum HitSound {
+	NONE,
+	NORMAL, 
+	WHISTLE, 
+	FINISH,
+	CLAP,
+}
+
+enum Mode {
+	NORMAL,
+	TAIKO,
+	CATCH,
+	MANIA,
+}
+
+enum OverlayPosition {
+	NO_CHANGE,
+	BELOW,
+	ABOVE
+}
+
+enum SampleSet {
+	NONE, 
+	NORMAL, 
+	SOFT, 
+	DRUM,
+}
+
+enum Section {
+	NONE,
+	FORMAT,
+	GENERAL,
+	EDITOR,
+	METADATA,
+	DIFFICULTY,
+	EVENTS,
+	TIMINGPOINTS,
+	COLOURS,
+	HITOBJECTS,
+	FONTS,
+	CATCHTHEBEAT,
+	MANIA,
+}
