@@ -7,3 +7,5 @@ android/
 *.vscode/
 *.uid
 *.gd.uid
+Osu Stuff/
+*Godot Executables/

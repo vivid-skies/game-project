@@ -1,0 +1,312 @@
+[gd_scene load_steps=19 format=3 uid="uid://ba28dtb4iao1w"]
+
+[ext_resource type="Script" uid="uid://bncw0olqfyh7i" path="res://Osus/game.gd" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/HitObjects/hit_circle.gd" id="2_553qj"]
+[ext_resource type="Script" uid="uid://bvynvcsokg8yh" path="res://Osus/UI/AudioVisualiser/music_volume_slider.gd" id="3_cpr0p"]
+[ext_resource type="Script" uid="uid://cdxphpkskvhkx" path="res://Osus/synchroniser.gd" id="4_7qr8o"]
+[ext_resource type="Texture2D" uid="uid://b56v46fci8uls" path="res://assets/textures/Gameplay/disc.png" id="4_553qj"]
+[ext_resource type="Script" uid="uid://cd8u1c3t7urnm" path="res://Osus/draw_test.gd" id="4_fkp3s"]
+[ext_resource type="Script" uid="uid://cxllcydjwtmpl" path="res://Osus/HitObjects/slider.gd" id="4_ftsq8"]
+[ext_resource type="Script" uid="uid://uvr4vi1ql6ws" path="res://Osus/trajectory_test.gd" id="4_k3wxv"]
+[ext_resource type="Script" uid="uid://djlhtybepxm06" path="res://Osus/hit_box.gd" id="5_88qv2"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="7_88qv2"]
+[ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://Osus/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
+bg_color = Color(0, 0, 0, 0.176471)
+
+[sub_resource type="Curve" id="Curve_k3wxv"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(1, 0.5), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_k3wxv"]
+resource_name = "timing_section"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Drawables/Torus:material:shader_parameter/torus_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.45, 0.11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_timing_section_end"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_553qj"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Drawables/Torus:material:shader_parameter/torus_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.45, 0.11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_timing_section_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkp3s"]
+_data = {
+&"RESET": SubResource("Animation_553qj"),
+&"timing_section": SubResource("Animation_k3wxv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qr8o"]
+radius = 24.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftsq8"]
+resource_local_to_scene = true
+shader = ExtResource("7_88qv2")
+shader_parameter/torus_thickness = 0.01
+shader_parameter/torus_hardness = 4.0
+shader_parameter/torus_radius = 0.45
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ibkli")
+
+[node name="InterfaceControls" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="InterfaceControls"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_400sg")
+metadata/_edit_lock_ = true
+
+[node name="FPSDisplay" parent="InterfaceControls/Panel" instance=ExtResource("9_kyk2p")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 95.0
+offset_bottom = 55.0
+metadata/_edit_lock_ = true
+
+[node name="VolumeControls" type="BoxContainer" parent="InterfaceControls/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -335.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+vertical = true
+metadata/_edit_lock_ = true
+
+[node name="music_volume" type="Label" parent="InterfaceControls/Panel/VolumeControls"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="InterfaceControls/Panel/VolumeControls"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="volume_label" type="Label" parent="InterfaceControls/Panel/VolumeControls/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0%"
+
+[node name="volume_slider" type="VSlider" parent="InterfaceControls/Panel/VolumeControls/BoxContainer" node_paths=PackedStringArray("volume_label")]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_cpr0p")
+bus_name = "Music"
+volume_label = NodePath("../volume_label")
+
+[node name="Gameplay" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Playfield" type="AspectRatioContainer" parent="Gameplay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.8, 1.8)
+pivot_offset = Vector2(320, 240)
+mouse_filter = 2
+ratio = 1.33
+stretch_mode = 3
+
+[node name="DrawTest" type="Node2D" parent="Gameplay/Playfield"]
+position = Vector2(331.667, 123.889)
+script = ExtResource("4_fkp3s")
+
+[node name="TrajectoryTest" type="Node2D" parent="Gameplay/Playfield"]
+position = Vector2(274.992, 264.565)
+script = ExtResource("4_k3wxv")
+
+[node name="Line2D" type="Line2D" parent="Gameplay/Playfield/TrajectoryTest"]
+points = PackedVector2Array(-14.4364, 3.76834, -39.992, -0.676086, -94.992, -74.0094, 2.7858, -111.787, 70.008, -87.8983)
+width_curve = SubResource("Curve_k3wxv")
+
+[node name="Slider" type="Node2D" parent="Gameplay/Playfield"]
+z_index = 1
+position = Vector2(433, 249)
+script = ExtResource("4_ftsq8")
+
+[node name="Timer" type="Timer" parent="Gameplay/Playfield/Slider"]
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="Gameplay/Playfield/Slider"]
+libraries = {
+&"": SubResource("AnimationLibrary_fkp3s")
+}
+
+[node name="HitBox" type="Area2D" parent="Gameplay/Playfield/Slider"]
+script = ExtResource("5_88qv2")
+
+[node name="Collider" type="CollisionShape2D" parent="Gameplay/Playfield/Slider/HitBox"]
+z_index = 2
+shape = SubResource("CircleShape2D_7qr8o")
+disabled = true
+debug_color = Color(0, 0.580392, 0.803922, 0.211765)
+
+[node name="Drawables" type="CenterContainer" parent="Gameplay/Playfield/Slider"]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(24, 24)
+mouse_filter = 2
+
+[node name="HitCircle" type="TextureRect" parent="Gameplay/Playfield/Slider/Drawables"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_553qj")
+expand_mode = 1
+
+[node name="Torus" type="ColorRect" parent="Gameplay/Playfield/Slider/Drawables"]
+material = SubResource("ShaderMaterial_ftsq8")
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HitCircle" type="Node2D" parent="Gameplay/Playfield"]
+z_index = 1
+position = Vector2(433, 249)
+script = ExtResource("2_553qj")
+disabled = true
+
+[node name="Timer" type="Timer" parent="Gameplay/Playfield/HitCircle"]
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="Gameplay/Playfield/HitCircle"]
+libraries = {
+&"": SubResource("AnimationLibrary_fkp3s")
+}
+
+[node name="HitBox" type="Area2D" parent="Gameplay/Playfield/HitCircle"]
+script = ExtResource("5_88qv2")
+
+[node name="Collider" type="CollisionShape2D" parent="Gameplay/Playfield/HitCircle/HitBox"]
+z_index = 2
+shape = SubResource("CircleShape2D_7qr8o")
+disabled = true
+debug_color = Color(0, 0.580392, 0.803922, 0.211765)
+
+[node name="Drawables" type="CenterContainer" parent="Gameplay/Playfield/HitCircle"]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(24, 24)
+mouse_filter = 2
+
+[node name="HitCircle" type="TextureRect" parent="Gameplay/Playfield/HitCircle/Drawables"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_553qj")
+expand_mode = 1
+
+[node name="Torus" type="ColorRect" parent="Gameplay/Playfield/HitCircle/Drawables"]
+material = SubResource("ShaderMaterial_ftsq8")
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Test" type="ColorRect" parent="Gameplay/Playfield"]
+z_index = -2
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.160784)
+metadata/_edit_lock_ = true
+
+[node name="Synchroniser" type="Node" parent="."]
+script = ExtResource("4_7qr8o")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Synchroniser"]
+process_mode = 3
+volume_db = -5.0
+bus = &"Music"
+
+[connection signal="timeout" from="Gameplay/Playfield/Slider/Timer" to="Gameplay/Playfield/Slider" method="_on_timer_timeout"]
+[connection signal="keyboard_action" from="Gameplay/Playfield/Slider/HitBox" to="Gameplay/Playfield/Slider" method="_on_hit_box_keyboard_action"]
+[connection signal="mouse_action" from="Gameplay/Playfield/Slider/HitBox" to="Gameplay/Playfield/Slider" method="_on_hit_box_mouse_action"]
+[connection signal="timeout" from="Gameplay/Playfield/HitCircle/Timer" to="Gameplay/Playfield/HitCircle" method="_on_timer_timeout"]
+[connection signal="keyboard_action" from="Gameplay/Playfield/HitCircle/HitBox" to="Gameplay/Playfield/HitCircle" method="_on_hit_box_keyboard_action"]
+[connection signal="mouse_action" from="Gameplay/Playfield/HitCircle/HitBox" to="Gameplay/Playfield/HitCircle" method="_on_hit_box_mouse_action"]

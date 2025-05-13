@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcwd74y17ukf1"]
-
-[ext_resource type="Script" uid="uid://ltk88kcj8gkt" path="res://OsuLib/OsuLib.cs" id="1_ni50v"]
-
-[node name="OsuLib" type="Node"]
-script = ExtResource("1_ni50v")

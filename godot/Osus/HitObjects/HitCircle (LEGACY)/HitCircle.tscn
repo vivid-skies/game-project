@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpsu2ryieo5b2"]
+
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="1_3y5v2"]
+[ext_resource type="Script" uid="uid://bpxx72j7twjpd" path="res://Osus/HitObjects/HitCircle (LEGACY)/hit_circle.gd" id="2_uv6hd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2e43"]
+resource_local_to_scene = true
+shader = ExtResource("1_3y5v2")
+shader_parameter/torus_thickness = 0.015
+shader_parameter/torus_hardness = -5.0
+shader_parameter/torus_radius = 0.5
+
+[node name="HitCircle" type="ColorRect"]
+modulate = Color(1, 1, 1, 0.294118)
+material = SubResource("ShaderMaterial_o2e43")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = -1770.0
+offset_bottom = -930.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
+script = ExtResource("2_uv6hd")
