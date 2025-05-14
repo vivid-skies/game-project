@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ba28dtb4iao1w"]
+[gd_scene load_steps=19 format=3 uid="uid://ba28dtb4iao1w"]
 
 [ext_resource type="Script" uid="uid://bncw0olqfyh7i" path="res://Osus/game.gd" id="1_ibkli"]
 [ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/HitObjects/HitCircle/hit_circle.gd" id="2_553qj"]
@@ -10,14 +10,10 @@
 [ext_resource type="Script" uid="uid://uvr4vi1ql6ws" path="res://Osus/HitObjects/trajectory_test.gd" id="4_k3wxv"]
 [ext_resource type="Script" uid="uid://djlhtybepxm06" path="res://Osus/HitObjects/HitCircle/hit_box.gd" id="5_88qv2"]
 [ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="7_88qv2"]
-[ext_resource type="Script" uid="uid://dhpwwe4x618up" path="res://Osus/path_2d.gd" id="7_xnqyd"]
 [ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://Osus/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
 bg_color = Color(0, 0, 0, 0.176471)
-
-[sub_resource type="Curve2D" id="Curve2D_fkp3s"]
-resource_local_to_scene = true
 
 [sub_resource type="Animation" id="Animation_553qj"]
 length = 2.0
@@ -181,7 +177,6 @@ pivot_offset = Vector2(320, 240)
 mouse_filter = 2
 ratio = 1.33
 stretch_mode = 3
-metadata/_edit_lock_ = true
 
 [node name="DrawTest" type="Node2D" parent="Gameplay/Playfield"]
 visible = false
@@ -189,7 +184,6 @@ position = Vector2(331.667, 123.889)
 script = ExtResource("4_fkp3s")
 
 [node name="TrajectoryTest" type="Node2D" parent="Gameplay/Playfield"]
-visible = false
 position = Vector2(274.992, 264.565)
 script = ExtResource("4_k3wxv")
 
@@ -197,7 +191,8 @@ script = ExtResource("4_k3wxv")
 position = Vector2(-28.3253, -14.0094)
 rotation = -0.0611299
 scale = Vector2(0.866522, 1)
-points = PackedVector2Array(109, 159, 184, 176, 223, 243)
+points = PackedVector2Array(-66.4507, -95.9191, -86.0013, -91.9467, -109.222, -108.763, -93.0284, -137.96, -58.7461, -132.246, -57.1656, -118.247)
+closed = true
 default_color = Color(0.130365, 0.127879, 0.13867, 1)
 joint_mode = 2
 begin_cap_mode = 2
@@ -208,26 +203,32 @@ antialiased = true
 
 [node name="Slider" type="Node2D" parent="Gameplay/Playfield"]
 z_index = 1
-position = Vector2(307.778, 248.889)
+position = Vector2(433, 249)
 script = ExtResource("4_ftsq8")
 
-[node name="Path2D" type="Path2D" parent="Gameplay/Playfield/Slider"]
-curve = SubResource("Curve2D_fkp3s")
-script = ExtResource("7_xnqyd")
+[node name="Timer" type="Timer" parent="Gameplay/Playfield/Slider"]
 
-[node name="Line" type="Line2D" parent="Gameplay/Playfield/Slider/Path2D"]
-width = 30.0
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-round_precision = 32
-antialiased = true
+[node name="AnimPlayer" type="AnimationPlayer" parent="Gameplay/Playfield/Slider"]
+libraries = {
+&"": SubResource("AnimationLibrary_fkp3s")
+}
 
-[node name="HitCircle" type="TextureRect" parent="Gameplay/Playfield/Slider/Path2D"]
-custom_minimum_size = Vector2(48, 48)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="HitBox" type="Area2D" parent="Gameplay/Playfield/Slider"]
+script = ExtResource("5_88qv2")
+
+[node name="Collider" type="CollisionShape2D" parent="Gameplay/Playfield/Slider/HitBox"]
+z_index = 2
+shape = SubResource("CircleShape2D_7qr8o")
+disabled = true
+debug_color = Color(0, 0.580392, 0.803922, 0.211765)
+
+[node name="Drawables" type="CenterContainer" parent="Gameplay/Playfield/Slider"]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -24.0
 offset_top = -24.0
 offset_right = 24.0
@@ -235,11 +236,21 @@ offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(24, 24)
+mouse_filter = 2
+
+[node name="HitCircle" type="TextureRect" parent="Gameplay/Playfield/Slider/Drawables"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
 texture = ExtResource("4_553qj")
 expand_mode = 1
 
+[node name="Torus" type="ColorRect" parent="Gameplay/Playfield/Slider/Drawables"]
+material = SubResource("ShaderMaterial_ftsq8")
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="HitCircle" type="Node2D" parent="Gameplay/Playfield"]
-visible = false
 z_index = 1
 position = Vector2(433, 249)
 script = ExtResource("2_553qj")
@@ -304,6 +315,9 @@ process_mode = 3
 volume_db = -5.0
 bus = &"Music"
 
+[connection signal="timeout" from="Gameplay/Playfield/Slider/Timer" to="Gameplay/Playfield/Slider" method="_on_timer_timeout"]
+[connection signal="keyboard_action" from="Gameplay/Playfield/Slider/HitBox" to="Gameplay/Playfield/Slider" method="_on_hit_box_keyboard_action"]
+[connection signal="mouse_action" from="Gameplay/Playfield/Slider/HitBox" to="Gameplay/Playfield/Slider" method="_on_hit_box_mouse_action"]
 [connection signal="timeout" from="Gameplay/Playfield/HitCircle/Timer" to="Gameplay/Playfield/HitCircle" method="_on_timer_timeout"]
 [connection signal="keyboard_action" from="Gameplay/Playfield/HitCircle/HitBox" to="Gameplay/Playfield/HitCircle" method="_on_hit_box_keyboard_action"]
 [connection signal="mouse_action" from="Gameplay/Playfield/HitCircle/HitBox" to="Gameplay/Playfield/HitCircle" method="_on_hit_box_mouse_action"]

@@ -12,20 +12,16 @@ var beatmap_info: Dictionary = {
 
 var beatmap_to_parse: String = beatmap_info["dir"] + "/" + beatmap_info["file_name"] + ".osu"
 
-var beatmap : Beatmap
+var beatmap: Beatmap
 var beatmap_dir: String
 
 @onready var synchroniser: Node = $Synchroniser
-
 
 func _ready() -> void:
 	beatmap = OsuLib.Utils.Decode.beatmap_decode(beatmap_to_parse)
 	beatmap_dir = beatmap.file_path.get_base_dir()
 
-
 	synchroniser.load_file(beatmap)
-
-
 
 
 func _process(_delta: float) -> void:
