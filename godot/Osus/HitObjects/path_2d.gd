@@ -1,4 +1,3 @@
-@tool
 extends Path2D
 
 @onready var line: Line2D = $Line

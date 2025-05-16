@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://cncigtgi0wbm4"]
+
+[ext_resource type="Script" uid="uid://bo62pw5kgto51" path="res://Osus/HitObjects/Slider/SliderObject.gd" id="1_2kb43"]
+[ext_resource type="Texture2D" uid="uid://b56v46fci8uls" path="res://assets/textures/Gameplay/disc.png" id="2_ym83j"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="3_0hmeh"]
+
+[sub_resource type="Curve2D" id="Curve2D_fkp3s"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftsq8"]
+radius = 58.3095
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftsq8"]
+resource_local_to_scene = true
+shader = ExtResource("3_0hmeh")
+shader_parameter/torus_thickness = 0.01
+shader_parameter/torus_hardness = 4.0
+shader_parameter/torus_radius = 0.45
+
+[node name="SliderObject" type="Path2D"]
+self_modulate = Color(1, 1, 1, 0)
+curve = SubResource("Curve2D_fkp3s")
+script = ExtResource("1_2kb43")
+
+[node name="SliderPath" type="Line2D" parent="."]
+width = 30.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 32
+antialiased = true
+
+[node name="GrowthTimer" type="Timer" parent="SliderPath"]
+
+[node name="SliderFollow" type="PathFollow2D" parent="."]
+rotates = false
+loop = false
+
+[node name="Hitbox" type="Area2D" parent="SliderFollow"]
+scale = Vector2(0.555556, 0.555556)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SliderFollow/Hitbox"]
+shape = SubResource("CircleShape2D_ftsq8")
+
+[node name="ApproachCircle" type="ColorRect" parent="SliderFollow/Hitbox"]
+material = SubResource("ShaderMaterial_ftsq8")
+custom_minimum_size = Vector2(250, 250)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HitCircle" type="Sprite2D" parent="SliderFollow/Hitbox"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ym83j")
+
+[node name="ScoreTimer" type="Timer" parent="SliderFollow/Hitbox"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="movement_finished" from="." to="." method="_on_movement_finished"]
+[connection signal="timeout" from="SliderPath/GrowthTimer" to="." method="_on_growth_timer_timeout"]
+[connection signal="mouse_entered" from="SliderFollow/Hitbox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SliderFollow/Hitbox" to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="SliderFollow/Hitbox/ScoreTimer" to="." method="_on_score_timer_timeout"]

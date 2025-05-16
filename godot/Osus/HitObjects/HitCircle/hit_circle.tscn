@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6qh7qd0lg1c5"]
+
+[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/HitObjects/HitCircle/hit_circle.gd" id="1_pby84"]
+[ext_resource type="Script" uid="uid://djlhtybepxm06" path="res://Osus/HitObjects/HitCircle/hit_box.gd" id="2_jw270"]
+[ext_resource type="Texture2D" uid="uid://b56v46fci8uls" path="res://assets/textures/Gameplay/disc.png" id="3_x4lde"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="4_ke7e1"]
+
+[sub_resource type="Animation" id="Animation_553qj"]
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_timing_section_end"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../SliderObject/Torus:material:shader_parameter/torus_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.45, 0.11]
+}
+
+[sub_resource type="Animation" id="Animation_fkp3s"]
+resource_name = "linear_curve"
+
+[sub_resource type="Animation" id="Animation_k3wxv"]
+resource_name = "timing_section"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Drawables/Torus:material:shader_parameter/torus_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.45, 0.11]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_timing_section_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkp3s"]
+_data = {
+&"RESET": SubResource("Animation_553qj"),
+&"linear_curve": SubResource("Animation_fkp3s"),
+&"timing_section": SubResource("Animation_k3wxv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qr8o"]
+radius = 24.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftsq8"]
+resource_local_to_scene = true
+shader = ExtResource("4_ke7e1")
+shader_parameter/torus_thickness = 0.01
+shader_parameter/torus_hardness = 4.0
+shader_parameter/torus_radius = 0.45
+
+[node name="HitCircle" type="Node2D"]
+z_index = 1
+script = ExtResource("1_pby84")
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fkp3s")
+}
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("2_jw270")
+
+[node name="Collider" type="CollisionShape2D" parent="HitBox"]
+z_index = 2
+shape = SubResource("CircleShape2D_7qr8o")
+disabled = true
+debug_color = Color(0, 0.580392, 0.803922, 0.211765)
+
+[node name="Drawables" type="CenterContainer" parent="."]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(24, 24)
+mouse_filter = 2
+
+[node name="HitCircle" type="TextureRect" parent="Drawables"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("3_x4lde")
+expand_mode = 1
+
+[node name="Torus" type="ColorRect" parent="Drawables"]
+material = SubResource("ShaderMaterial_ftsq8")
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="keyboard_action" from="HitBox" to="." method="_on_hit_box_keyboard_action"]
+[connection signal="mouse_action" from="HitBox" to="." method="_on_hit_box_mouse_action"]

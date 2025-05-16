@@ -1,14 +1,14 @@
 
 
 class Decode:
-	static func beatmap_decode(p_file: String) -> Beatmap:
+	static func beatmap_decode(p_file: String, beatmap: Beatmap) -> Beatmap:
 		if !FileAccess.file_exists(p_file):
 			push_error("Could not find: ", p_file)
 			return
 
 		var file: FileAccess = FileAccess.open(p_file, FileAccess.READ)
-		var beatmap: Beatmap = Beatmap.new()
 		beatmap.file_path = p_file
+		beatmap.file_name = p_file.get_file()
 		var current_section: int = 0
 		
 		while file.get_position() < file.get_length():
@@ -133,18 +133,30 @@ class Decode:
 				return
 
 
-	static func parse_timing_points(timing_points: Array[Beatmap.TimingPoint], line: String) -> void:
+	static func parse_timing_points(timing_points: Array[Dictionary], line: String) -> void:
 		var contents: PackedStringArray = line.split(',')
-		for i in contents.size(): contents[i] = contents[i].strip_edges()
-		var timing_point: Beatmap.TimingPoint = Beatmap.TimingPoint.new()
-		timing_point.time = contents[0] as int
-		timing_point.beat_length = contents[1] as float
-		timing_point.meter = contents[2] as int
-		timing_point.sample_set = contents[3].to_int() as OsuLib.Enums.SampleSet
-		timing_point.sample_index = contents[4] as int
-		timing_point.volume = contents[5] as int
-		timing_point.uninherited = contents[6].to_int() as bool
-		timing_point.effects = contents[7].to_int() as OsuLib.Enums.Effect
+		var converted_contents: Array = []
+
+		for i in contents.size(): 
+			contents[i] = contents[i].strip_edges()
+
+			if step_decimals(contents[i].to_float()) > 0:
+				converted_contents.append(contents[i].to_float())
+				continue
+
+			converted_contents.append(contents[i].to_int())
+
+		var timing_point: Dictionary = {
+			time = converted_contents[0],
+			beat_length = converted_contents[1],
+			meter = converted_contents[2],
+			sample_set = converted_contents[3],
+			sample_index = converted_contents[4],
+			volume = converted_contents[5],
+			uninherited = converted_contents[6],
+			effects = converted_contents[7]
+		}
+
 		timing_points.append(timing_point)
 
 
