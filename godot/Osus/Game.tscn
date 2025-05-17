@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba28dtb4iao1w"]
+[gd_scene load_steps=6 format=3 uid="uid://ba28dtb4iao1w"]
 
 [ext_resource type="Script" uid="uid://bncw0olqfyh7i" path="res://Osus/game.gd" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://detrxtxch2mxc" path="res://Osus/timing_point.gd" id="2_7qr8o"]
 [ext_resource type="Script" uid="uid://bvynvcsokg8yh" path="res://Osus/UI/AudioVisualiser/music_volume_slider.gd" id="3_cpr0p"]
 [ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://Osus/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
 
@@ -9,6 +10,38 @@ bg_color = Color(0, 0, 0, 0.176471)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ibkli")
+
+[node name="TimerQueue" type="Node" parent="."]
+script = ExtResource("2_7qr8o")
+
+[node name="Gameplay" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Playfield" type="AspectRatioContainer" parent="Gameplay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.8, 1.8)
+pivot_offset = Vector2(320, 240)
+mouse_filter = 2
+ratio = 1.33
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Test" type="ColorRect" parent="Gameplay/Playfield"]
+z_index = -2
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.160784)
+metadata/_edit_lock_ = true
 
 [node name="InterfaceControls" type="CanvasLayer" parent="."]
 
@@ -69,38 +102,11 @@ script = ExtResource("3_cpr0p")
 bus_name = "Music"
 volume_label = NodePath("../volume_label")
 
-[node name="Gameplay" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="Playfield" type="AspectRatioContainer" parent="Gameplay"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -240.0
-offset_right = 320.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.8, 1.8)
-pivot_offset = Vector2(320, 240)
-mouse_filter = 2
-ratio = 1.33
-stretch_mode = 3
-metadata/_edit_lock_ = true
-
-[node name="Test" type="ColorRect" parent="Gameplay/Playfield"]
-z_index = -2
-layout_mode = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0.160784)
-metadata/_edit_lock_ = true
-
 [node name="Synchroniser" type="Node" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Synchroniser"]
 process_mode = 3
 volume_db = -5.0
 bus = &"Music"
+
+[connection signal="TimingPointChange" from="." to="." method="_on_timing_point_change"]
