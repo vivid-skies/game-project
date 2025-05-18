@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://tlioiq3g42q4"]
+
+[ext_resource type="Script" uid="uid://bmlmqccqtdbmr" path="res://Osus/Scenes/Conductor.gd" id="1_wvnj3"]
+
+[node name="Conductor" type="AudioStreamPlayer2D"]
+bus = &"Music"
+script = ExtResource("1_wvnj3")
+
+[node name="StartTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

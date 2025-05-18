@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://b6qh7qd0lg1c5"]
 
-[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/HitObjects/HitCircle/hit_circle.gd" id="1_pby84"]
-[ext_resource type="Script" uid="uid://djlhtybepxm06" path="res://Osus/HitObjects/HitCircle/hit_box.gd" id="2_jw270"]
+[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/Scenes/HitObjects/HitCircle/hit_circle.gd" id="1_pby84"]
+[ext_resource type="Script" uid="uid://djlhtybepxm06" path="res://Osus/Scenes/HitObjects/HitCircle/hit_box.gd" id="2_jw270"]
 [ext_resource type="Texture2D" uid="uid://b56v46fci8uls" path="res://assets/textures/Gameplay/disc.png" id="3_x4lde"]
-[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="4_ke7e1"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/Scenes/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="4_ke7e1"]
 
 [sub_resource type="Animation" id="Animation_553qj"]
 length = 2.0

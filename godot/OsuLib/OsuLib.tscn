@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dxfcyf3rkwc4j"]
 
-[ext_resource type="Script" uid="uid://mdffrtgyvtdl" path="res://Osus/Autoload/OsuLib.gd" id="1_ni50v"]
+[ext_resource type="Script" uid="uid://mdffrtgyvtdl" path="res://Osus/Scripts/Globals/OsuLib.gd" id="1_ni50v"]
 
 [node name="OsuLib" type="Node"]
 script = ExtResource("1_ni50v")

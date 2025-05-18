@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://boekfxr4fc88n"]
 
-[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/HitObjects/HitCircle/hit_circle.gd" id="1_dhiil"]
+[ext_resource type="Script" uid="uid://blq74vpivryl8" path="res://Osus/Scenes/HitObjects/HitCircle/hit_circle.gd" id="1_dhiil"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d67j3"]
 radius = 30.0

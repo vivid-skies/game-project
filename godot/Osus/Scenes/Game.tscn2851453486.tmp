@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba28dtb4iao1w"]
+
+[ext_resource type="Script" uid="uid://tlbn7mfnf2bf" path="res://Osus/Scripts/Game.gd" id="1_ncdl0"]
+[ext_resource type="PackedScene" uid="uid://tlioiq3g42q4" path="res://Osus/Scenes/Conductor.tscn" id="3_amien"]
+[ext_resource type="Script" uid="uid://bvynvcsokg8yh" path="res://Osus/UI/AudioVisualiser/music_volume_slider.gd" id="3_cpr0p"]
+[ext_resource type="AudioStream" uid="uid://brybkmb58ujx1" path="res://bin/processed/482090 9mm Parabellum Bullet - Inferno/audio.mp3" id="3_wrm7t"]
+[ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://Osus/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
+bg_color = Color(0, 0, 0, 0.176471)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ncdl0")
+beatmap_file = "res://bin/processed/482090 9mm Parabellum Bullet - Inferno/9mm Parabellum Bullet - Inferno (Monstrata) [Agonizing Insane].osu"
+audio_file = ExtResource("3_wrm7t")
+
+[node name="Conductor" parent="." instance=ExtResource("3_amien")]
+autoplay = true
+
+[node name="Playfield" type="AspectRatioContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 640.0
+offset_top = 300.0
+offset_right = 1280.0
+offset_bottom = 780.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.8, 1.8)
+pivot_offset = Vector2(320, 240)
+mouse_filter = 2
+ratio = 1.33
+stretch_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Test" type="ColorRect" parent="Playfield"]
+z_index = -2
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.160784)
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_400sg")
+metadata/_edit_lock_ = true
+
+[node name="FPSDisplay" parent="Panel" instance=ExtResource("9_kyk2p")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 95.0
+offset_bottom = 55.0
+metadata/_edit_lock_ = true
+
+[node name="VolumeControls" type="BoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -335.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+vertical = true
+metadata/_edit_lock_ = true
+
+[node name="music_volume" type="Label" parent="Panel/VolumeControls"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="Panel/VolumeControls"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="volume_label" type="Label" parent="Panel/VolumeControls/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0%"
+
+[node name="volume_slider" type="VSlider" parent="Panel/VolumeControls/BoxContainer" node_paths=PackedStringArray("volume_label")]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.01
+script = ExtResource("3_cpr0p")
+bus_name = "Music"
+volume_label = NodePath("../volume_label")
+
+[connection signal="b_beat" from="Conductor" to="." method="_on_Conductor_beat"]
+[connection signal="b_measure" from="Conductor" to="." method="_on_Conductor_measure"]

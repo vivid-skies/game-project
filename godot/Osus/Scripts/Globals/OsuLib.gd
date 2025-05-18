@@ -15,8 +15,8 @@ extends Node
 
 # var ticks: float
 
-const Enums = preload('../../OsuLib/Enums.gd')
-const Utils: Object = preload('../../OsuLib/Utils.gd')
+const Enums = preload('res://OsuLib/Enums.gd')
+const Utils: Object = preload('res://OsuLib/Utils.gd')
 
 static func print_test() -> void:
 	print(Enums.Event)

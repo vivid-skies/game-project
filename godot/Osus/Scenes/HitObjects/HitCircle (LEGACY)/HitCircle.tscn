@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpsu2ryieo5b2"]
 
-[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="1_3y5v2"]
-[ext_resource type="Script" uid="uid://bpxx72j7twjpd" path="res://Osus/HitObjects/HitCircle (LEGACY)/hit_circle.gd" id="2_uv6hd"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/Scenes/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="1_3y5v2"]
+[ext_resource type="Script" uid="uid://bpxx72j7twjpd" path="res://Osus/Scenes/HitObjects/HitCircle (LEGACY)/hit_circle.gd" id="2_uv6hd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2e43"]
 resource_local_to_scene = true

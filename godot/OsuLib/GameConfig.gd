@@ -62,7 +62,7 @@ static func set_approach_rate(AR: float) -> Dictionary:
 
 		# Assert if AR is 2
 		assVal = 1560.0
-		assert(preempt == assVal, "Expected prempt to be  1560.0, but it was %s" % preempt)
+		assert(preempt == assVal, "Expected preempt to be  1560.0, but it was %s" % preempt)
 
 	elif AR == 5.0: 
 		preempt = 1200.0
@@ -70,14 +70,14 @@ static func set_approach_rate(AR: float) -> Dictionary:
 
 		# Assert if AR is 5
 		assVal = 1200.0
-		assert(preempt == assVal, "Expected prempt to be  1200.0, but it was %s" % preempt)
+		assert(preempt == assVal, "Expected preempt to be  1200.0, but it was %s" % preempt)
 	elif AR > 5.0: 
 		preempt = 1200.0 - 750.0 * (AR - 5.0) / 5.0
 		fade_in = 800.0 - 500.0 * (AR - 5.0) / 5.0
 
 		# Assert if AR is 7
 		assVal = 900.0
-		assert(preempt == assVal, "Expected prempt to be  900.0, but it was %s" % preempt)
+		assert(preempt == assVal, "Expected preempt to be  900.0, but it was %s" % preempt)
 	
 	return {
 		preempt = preempt,

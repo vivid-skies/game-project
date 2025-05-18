@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cncigtgi0wbm4"]
 
-[ext_resource type="Script" uid="uid://bo62pw5kgto51" path="res://Osus/HitObjects/Slider/SliderObject.gd" id="1_2kb43"]
+[ext_resource type="Script" uid="uid://bo62pw5kgto51" path="res://Osus/Scenes/HitObjects/Slider/SliderObject.gd" id="1_2kb43"]
 [ext_resource type="Texture2D" uid="uid://b56v46fci8uls" path="res://assets/textures/Gameplay/disc.png" id="2_ym83j"]
-[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="3_0hmeh"]
+[ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/Scenes/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="3_0hmeh"]
 
 [sub_resource type="Curve2D" id="Curve2D_fkp3s"]
 resource_local_to_scene = true
