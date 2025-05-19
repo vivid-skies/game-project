@@ -100,5 +100,7 @@ script = ExtResource("3_cpr0p")
 bus_name = "Music"
 volume_label = NodePath("../volume_label")
 
+[connection signal="ConductorReady" from="Conductor" to="." method="_on_conductor_ready"]
+[connection signal="HitObjectSpawn" from="Conductor" to="." method="_spawn_hit_objects"]
 [connection signal="b_beat" from="Conductor" to="." method="_on_Conductor_beat"]
 [connection signal="b_measure" from="Conductor" to="." method="_on_Conductor_measure"]

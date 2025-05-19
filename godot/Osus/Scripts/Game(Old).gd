@@ -209,4 +209,4 @@ static func set_approach_rate(AR: float) -> Dictionary:
 		fade_in = fade_in,
 	}
 
-static func get_bpm(beat_length: float, time_signature: float) -> float: return (time_signature / 4.0) / beat_length * 1000.0 * 60.0
+func get_bpm(beat_length: float, time_signature: float) -> float: return (time_signature / 4.0) / beat_length * 1000.0 * 60.0

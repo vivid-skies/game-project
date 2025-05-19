@@ -10,6 +10,7 @@ const TIMING_SECTION: String = "timing_section"
 
 
 # @onready var hit_box: Area2D = $HitBox
+@export var lifetime: float = 2
 @onready var timer: Timer = $Timer
 @onready var hit_circle: TextureRect = $Drawables/HitCircle
 @onready var torus: ColorRect = $Drawables/Torus
@@ -21,8 +22,9 @@ const TIMING_SECTION: String = "timing_section"
 @export var disabled: bool = false
 
 func _ready() -> void:
-	if not disabled: start_timing_section(4)
+	# start_timing_section(lifetime)
 	# start_timer()
+	pass
 
 
 func _physics_process(_delta: float) -> void:
@@ -40,9 +42,13 @@ func _on_hit_box_keyboard_action() -> void:
 
 
 func _on_timing_section_end() -> void:
-	print("im dead")
-	# queue_free()
+	# print("im dead")
+	queue_free()
 	pass
+
+func initialise(AR: float, coord: Vector2i) -> void:
+	global_position = coord
+	start_timing_section(AR)
 
 func start_timing_section (lifetime: float) -> void:
 	# Sets the duration of the animation aka lifetime
@@ -67,3 +73,7 @@ func start_timer() -> void:
 func _on_timer_timeout() -> void:
 	current_radius = torus.material.get(TORUS_RADIUS)
 	print("%.2f" % current_radius)
+
+
+func _on_anim_player_animation_finished(anim_name:StringName) -> void:
+	pass # Replace with function body.

@@ -112,6 +112,14 @@ func get_timing_points() -> Array[Dictionary]:
 
 
 func get_hit_objects() -> Array:
+	# var hit_objects_dict: Array[Dictionary]
+
+	# for i in hit_objects.size():
+	# 	hit_objects_dict.append(
+	# 		{
+
+	# 		}
+	# 	)
 	return self.hit_objects
 
 

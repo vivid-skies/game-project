@@ -59,8 +59,6 @@ texture = ExtResource("2_ym83j")
 
 [node name="ScoreTimer" type="Timer" parent="SliderFollow/Hitbox"]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
 [connection signal="movement_finished" from="." to="." method="_on_movement_finished"]
 [connection signal="timeout" from="SliderPath/GrowthTimer" to="." method="_on_growth_timer_timeout"]
 [connection signal="mouse_entered" from="SliderFollow/Hitbox" to="." method="_on_mouse_entered"]

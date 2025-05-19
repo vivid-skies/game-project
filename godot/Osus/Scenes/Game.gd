@@ -29,12 +29,17 @@ var spawn_4_beat: int = 0
 var lane: int = 0
 var rand: int = 0
 
+const PlAYFIELD: Vector2i = Vector2i(640, 480)
 
 # var note = load("res://Scenes/ArrowNote.tscn")
+var HitCircle: PackedScene = preload("res://Osus/Scenes/HitObjects/HitCircle/hit_circle.tscn")
+var SliderObject: PackedScene = preload("res://Osus/Scenes/HitObjects/Slider/slider_object.tscn")
 
-var instance: Variant
+var instance: PackedScene
 
-@onready var beatmap: Beatmap = OsuLib.Utils.Decode.beatmap_decode(beatmap_file, Beatmap.new())
+var beatmap: Beatmap
+var hit_objects: Array
+var timing_points: Array[Dictionary]
 
 # Current timine point data
 # var beat_legnth: float = 0.0
@@ -44,17 +49,50 @@ var instance: Variant
 # var volume: int = 0
 # var uninherited: int = 0
 # var effects: int = 0
-
+func _init() -> void:
+	pass
 func _ready() -> void:
-	var times: PackedInt32Array
-	for timing_point in beatmap.timing_points:
-		var time: int = timing_point.time
-		times.append(timing_point.time)
+	pass
 
-	$Conductor.timing_points = times
-	$Conductor.set("stream", audio_file)
-	$Conductor.play_with_beat_offset(4)
+func _on_conductor_ready() -> void:
+	beatmap = OsuLib.Utils.Decode.beatmap_decode(beatmap_file, Beatmap.new())
+	hit_objects = beatmap.get_hit_objects()
+	timing_points = beatmap.get_timing_points()
+	$Conductor.initialise(timing_points, hit_objects, audio_file, 4)
+	$Conductor.play_track()
+	# $Conductor.set_bpm(beat_length, meter)
+	# $Conductor.timing_points = times
+	# $Conductor.set("stream", audio_file)
+	# $Conductor.play_with_beat_offset(0)
 
+func _spawn_hit_objects(index: int, AR: float, latency: float) -> void:
+	var hit_object: Variant = hit_objects[index]
+
+	match hit_object.type as OsuLib.Enums.HitObject:
+		OsuLib.Enums.HitObject.NONE:
+			push_error("HitObject type is NONE")
+		OsuLib.Enums.HitObject.CIRCLE:
+			var hit_circle: Node = HitCircle.instantiate()
+			add_child(hit_circle)
+			hit_circle.initialise(AR / 1000.0, hit_object.coord)
+		OsuLib.Enums.HitObject.SLIDER:
+			# var slider: Node = SliderObject.instantiate()
+			# add_child(slider)
+			# slider.initialise(AR, hit_object.coord)
+			pass
+		OsuLib.Enums.HitObject.NEW_COMBO:
+			pass
+		OsuLib.Enums.HitObject.SPINNER:
+			pass
+		OsuLib.Enums.HitObject.ONE_SKIP:
+			pass
+		OsuLib.Enums.HitObject.TWO_SKIP:
+			pass
+		OsuLib.Enums.HitObject.THREE_SKIP:
+			pass
+
+
+	pass
 
 func _on_Conductor_measure(position : int) -> void:
 	# print_debug(position)
@@ -101,19 +139,19 @@ func _on_Conductor_beat(position : int) -> void:
 	# 	if get_tree().change_scene_to_file("res://Scenes/Intro.tscn") != OK:
 	# 		print ("Error changing scene to Intro")
 
-func _spawn_notes(to_spawn : int) -> void:
-	if to_spawn > 0:
-		lane = randi() % 3
-		# instance = note.instantiate()
-		instance.initialize(lane)
-		add_child(instance)
-	if to_spawn > 1:
-		while rand == lane:
-			rand = randi() % 3
-		lane = rand
-		# instance = note.instantiate()
-		instance.initialize(lane)
-		add_child(instance)
+# func _spawn_notes(to_spawn: int) -> void:
+# 	if to_spawn > 0:
+# 		lane = randi() % 3
+# 		# instance = note.instantiate()
+# 		instance.initialize(lane)
+# 		add_child(instance)
+# 	if to_spawn > 1:
+# 		while rand == lane:
+# 			rand = randi() % 3
+# 		lane = rand
+# 		# instance = note.instantiate()
+# 		instance.initialize(lane)
+# 		add_child(instance)
 		
 
 
@@ -154,3 +192,5 @@ func _on_conductor_finished() -> void:
 func _on_timing_point_change(index: int) -> void:
 	
 	pass
+
+

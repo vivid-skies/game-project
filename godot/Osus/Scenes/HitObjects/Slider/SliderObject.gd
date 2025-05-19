@@ -12,7 +12,7 @@ signal movement_finished
 @onready var hit_circle: Sprite2D = $SliderFollow/Hitbox/HitCircle
 @onready var approach_circle: ColorRect = $SliderFollow/Hitbox/ApproachCircle
 @onready var score_timer: Timer = $SliderFollow/Hitbox/ScoreTimer
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+# @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Tweens for animation
 @onready var slider_path_tween: Tween
@@ -29,17 +29,18 @@ signal movement_finished
 # var	pointB: Vector2i = Vector2i(184, 176)
 # var	pointC: Vector2i = Vector2i(223, 243)
 # var points_arr: PackedVector2Array = [pointA, pointB, pointC]
+var coords: PackedVector2Array
 
 # Slider Path vars
 var path_points: PackedVector2Array
-
 
 # Slider Object vars
 var beat_delay: float = 0.5  #beats before roller start
 var radius_start: float = 150.0
 var radius_end: float = 70.0  #(150 - TargetCircle width) / 2.0
 var order_number: int = 0
-
+var lifetime: float
+var bps: float
 
 # Hitbox vars
 var score: int = 0
@@ -49,30 +50,25 @@ var player_in_bounds: bool = false
 
 
 func _ready() -> void:
-	# curve.clear_points()
 
-	# for point in points_arr: curve.add_point(point)
 	pass
-	# var section: Dictionary = {
-	# 	curve = curve,
-	# 	duration = 1.0,
-	# 	color = Color.ALICE_BLUE,
-	# 	bps = 1.67,
-	# }
-	# self.setup_slider_object(section)
+
+func initialise(p_curve: Curve2D, duration: float, bps: float, color: Color = Color.ALICE_BLUE) -> void:
+	curve.clear_points()
+	for point in coords: 
+		curve.add_point(point)
 
 
-func setup_slider_object(data: Dictionary) -> void:
-	curve = data.curve
+	curve = p_curve
 	var curve_points: PackedVector2Array = curve.get_baked_points()
 	
 	setup_slider_path(curve_points)
 	start_slider_path()
 
-	setup_hitbox(data.bps, data.duration)
+	setup_hitbox(bps, duration)
 
-	var roller_path_delay: float = data.bps * beat_delay
-	var roller_path_duration: float = data.bps * data.duration / 2.0
+	var roller_path_delay: float = bps * beat_delay
+	var roller_path_duration: float = bps * duration / 2.0
 
 	start_slider_follow(roller_path_delay, roller_path_duration)
 	
@@ -98,7 +94,6 @@ func start_slider_path() -> void:
 func start_slider_follow(delay: float, duration: float) -> void:
 	# await(get_tree().create_timer(delay).timeout)
 	# start_hitbox()
-
 	slider_follow_tween = create_tween().bind_node(slider_follow)
 	slider_follow_tween.stop()
 	slider_follow_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT_IN)
@@ -128,7 +123,8 @@ func set_order_number(number: int) -> void:
 	# _label_end.text = str(number + 1)
 
 func _on_movement_finished() -> void:
-	print("i should be dead")
+	print("slider dedge")
+	queue_free()
 	pass # Replace with function body.
 
 

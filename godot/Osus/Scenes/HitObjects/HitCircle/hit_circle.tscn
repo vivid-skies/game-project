@@ -24,7 +24,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../SliderObject/Torus:material:shader_parameter/torus_radius")
+tracks/1/path = NodePath("Drawables/Torus:material:shader_parameter/torus_radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -76,7 +76,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7qr8o"]
-radius = 24.0
+radius = 25.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ftsq8"]
 resource_local_to_scene = true
@@ -135,5 +135,6 @@ layout_mode = 2
 mouse_filter = 2
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimPlayer" to="." method="_on_anim_player_animation_finished"]
 [connection signal="keyboard_action" from="HitBox" to="." method="_on_hit_box_keyboard_action"]
 [connection signal="mouse_action" from="HitBox" to="." method="_on_hit_box_mouse_action"]
