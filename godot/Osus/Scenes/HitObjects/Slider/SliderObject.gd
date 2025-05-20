@@ -20,16 +20,16 @@ signal movement_finished
 @onready var hitbox_tween: Tween
 
 
-@export var growth_speed: float = 0.00001
+@export var growth_speed: float = 0.001
 @export var expand_width: float = 25
 @export var expand_time: float = 0.5
 
 
-# var pointA: Vector2i = Vector2i(109, 159)
-# var	pointB: Vector2i = Vector2i(184, 176)
-# var	pointC: Vector2i = Vector2i(223, 243)
-# var points_arr: PackedVector2Array = [pointA, pointB, pointC]
-var coords: PackedVector2Array
+var pointA: Vector2i = Vector2i(109, 159)
+var	pointB: Vector2i = Vector2i(184, 176)
+var	pointC: Vector2i = Vector2i(223, 243)
+var points_arr: PackedVector2Array = [pointA, pointB, pointC]
+var coords: PackedVector2Array = points_arr
 
 # Slider Path vars
 var path_points: PackedVector2Array
@@ -40,7 +40,7 @@ var radius_start: float = 150.0
 var radius_end: float = 70.0  #(150 - TargetCircle width) / 2.0
 var order_number: int = 0
 var lifetime: float
-var bps: float
+var bps: float = 2.3
 
 # Hitbox vars
 var score: int = 0
@@ -48,18 +48,19 @@ var poll_time: float = 0.0
 var poll_amount: int = 10
 var player_in_bounds: bool = false
 
+var loops: int = 0
 
 func _ready() -> void:
-
+	# initialise(1, bps, coords, loops)
 	pass
 
-func initialise(p_curve: Curve2D, duration: float, bps: float, color: Color = Color.ALICE_BLUE) -> void:
+func initialise(duration: float, bps: float, p_coords: PackedVector2Array, p_loops: int) -> void:
 	curve.clear_points()
-	for point in coords: 
+	loops = p_loops
+	for point: Vector2 in p_coords:
 		curve.add_point(point)
 
-
-	curve = p_curve
+	# curve = p_curve
 	var curve_points: PackedVector2Array = curve.get_baked_points()
 	
 	setup_slider_path(curve_points)
@@ -70,10 +71,14 @@ func initialise(p_curve: Curve2D, duration: float, bps: float, color: Color = Co
 	var roller_path_delay: float = bps * beat_delay
 	var roller_path_duration: float = bps * duration / 2.0
 
+	print_debug(bps, duration)
+	# print_debug(curve.points.size())
+	print_debug(roller_path_delay, roller_path_duration)
+
 	start_slider_follow(roller_path_delay, roller_path_duration)
 	
 	# global_position = data.global_position
-	global_position = curve_points[0]
+	position = curve_points[0]
 	
 	# hit_circle.setup(radius_start, radius_end, data.bps, beat_delay)
 
@@ -97,15 +102,16 @@ func start_slider_follow(delay: float, duration: float) -> void:
 	slider_follow_tween = create_tween().bind_node(slider_follow)
 	slider_follow_tween.stop()
 	slider_follow_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT_IN)
-	slider_follow_tween.tween_property(slider_follow, "progress_ratio", 1, duration).from(0)
+	slider_follow_tween.tween_property(slider_follow, "progress_ratio", 1, duration).from(0).as_relative()
+	slider_follow_tween.set_loops(loops)
 	slider_follow_tween.play()
 
-	await(slider_follow_tween.loop_finished)
+	await(slider_follow_tween.finished)
 	emit_signal("movement_finished")
 
 
-func setup_hitbox(beats_per_second: float, duration: float) -> void:
-	poll_time = beats_per_second * duration / 2.0 / poll_amount 
+func setup_hitbox(bps: float, duration: float) -> void:
+	poll_time = bps * duration / 2.0 / poll_amount 
 
 func start_hitbox() -> void:
 	hitbox_tween = create_tween().bind_node(hitbox)

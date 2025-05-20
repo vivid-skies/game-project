@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://bhj48hjrbppob" path="res://Osus/Scenes/HitObjects/HitCircle (LEGACY)/HitCircle.gdshader" id="3_0hmeh"]
 
 [sub_resource type="Curve2D" id="Curve2D_fkp3s"]
-resource_local_to_scene = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ftsq8"]
 radius = 58.3095

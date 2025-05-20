@@ -16,3 +16,5 @@ var measure: int = 0
 
 var timing_section_i: int = 0
 var hit_object_i: int = 0
+
+var last_reported_beat_length: float = 0.0

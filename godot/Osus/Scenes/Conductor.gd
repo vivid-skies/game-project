@@ -29,20 +29,21 @@ var hit_object_counter: int = 0
 var timing_points: Array[Dictionary]
 var timing_point_offsets: PackedInt32Array
 var timing_point_counter: int = 0
+var last_beat_length: float = 0.0
 
 # Determining how close to the beat an event is
 var closest : int = 0
 var time_off_beat : float = 0.0
 
-var bpm: float
+var bpm: float = 0.0
 var measures : int = 4
-var curr_beat: float = 0
-var curr_beat_without_latency: float = 0
+var curr_beat: float = 0.0
+var curr_beat_without_latency: float = 0.0
 var visual_offset_ms: int = 0
 
 
 var _cached_latency: float = AudioServer.get_output_latency()
-var _prev_time_seconds: float = 0
+var _prev_time_seconds: float = 0.0
 
 
 func _ready() -> void:
@@ -94,8 +95,12 @@ func _physics_process(_delta : float) -> void:
 
 	# Hit Object Spawning
 	i = hit_object_counter
+	if i >= hit_object_spawns.size():
+		print_debug("End of array, last timing point was: %s" % hit_object_spawns[i - 1])
+		return
+		
 	if hit_object_spawns[i] - APPROACH_RATE <= song_pos_ms :
-		song_pos_ms_latency = hit_object_spawns[i] - song_pos_ms
+		song_pos_ms_latency = hit_object_spawns[i] - APPROACH_RATE
 		_report_hit_object_spawn(song_pos_ms_latency)
 
 		hit_object_counter += 1
@@ -120,6 +125,7 @@ func _update_globals() -> void:
 	Globals.measure = measure
 	Globals.timing_section_i = timing_point_counter
 	Globals.hit_object_i = hit_object_counter
+	Globals.last_reported_beat_length = last_beat_length
 
 func _report_ready() -> void:
 	emit_signal("ConductorReady")
@@ -131,6 +137,7 @@ func _timing_point_change(i: int) -> void:
 	bpm = floor(calc_bpm(beat_length, meter))
 	sec_per_beat = 60.0 / bpm
 	bps = bpm / 60.0
+	last_beat_length = beat_length
 
 func _report_time() -> void:
 	print_debug("%.0f" % song_pos_ms)

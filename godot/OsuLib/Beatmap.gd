@@ -239,7 +239,7 @@ class HitObject:
 		var edge_sounds: PackedInt32Array
 		var edge_sets: Array[PackedInt32Array]
 		func _init() -> void: self.type = OsuLib.Enums.HitObject.SLIDER
-	
+
 	class SpinnerObject extends HitObject:
 		var end_time: int
 		func _init() -> void: self.type = OsuLib.Enums.HitObject.SPINNER

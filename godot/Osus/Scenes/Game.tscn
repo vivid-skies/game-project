@@ -29,15 +29,13 @@ offset_right = 1280.0
 offset_bottom = 780.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.8, 1.8)
 pivot_offset = Vector2(320, 240)
 mouse_filter = 2
-ratio = 1.33
-stretch_mode = 3
 metadata/_edit_lock_ = true
 
 [node name="Test" type="ColorRect" parent="Playfield"]
 z_index = -2
+custom_minimum_size = Vector2(640, 480)
 layout_mode = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.160784)

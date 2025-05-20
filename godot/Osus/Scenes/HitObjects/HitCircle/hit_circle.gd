@@ -47,7 +47,7 @@ func _on_timing_section_end() -> void:
 	pass
 
 func initialise(AR: float, coord: Vector2i) -> void:
-	global_position = coord
+	position = coord
 	start_timing_section(AR)
 
 func start_timing_section (lifetime: float) -> void:
