@@ -2,10 +2,4 @@
 *.godot
 android/
 *exports/
-*assets/
-*.env
-*.vscode/
-*.uid
-*.gd.uid
-Osu Stuff/
 *Godot Executables/
