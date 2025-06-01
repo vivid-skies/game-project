@@ -76,34 +76,34 @@ func _spawn_hit_objects(index: int, AR: float, latency: float) -> void:
 			$Playfield.add_child(hit_circle)
 			hit_circle.initialise(AR / 1000.0, hit_object.coord)
 		OsuLib.Enums.HitObject.SLIDER:
-			# Note need to link the current hitobject to the SliderObject instance
-			var slider: Node = load("res://Osus/Scenes/HitObjects/Slider/slider_object.tscn").instantiate()
+			# # Note need to link the current hitobject to the SliderObject instance
+			# var slider: Node = load("res://Osus/Scenes/HitObjects/Slider/slider_object.tscn").instantiate()
 
-			var beat_length: float 
-			var slider_multiplier: float = beatmap.difficulty.slider_multiplier
-			var slider_velocity: float
-			var coords: PackedVector2Array
-			var loops: int = hit_object.slides
+			# var beat_length: float 
+			# var slider_multiplier: float = beatmap.difficulty.slider_multiplier
+			# var slider_velocity: float
+			# var coords: PackedVector2Array
+			# var loops: int = hit_object.slides
 
-			coords.append(hit_object.coord)
+			# coords.append(hit_object.coord)
 
-			for point: Vector2 in hit_object.curve_points:
-				coords.append(point)
+			# for point: Vector2 in hit_object.curve_points:
+			# 	coords.append(point)
 
-			if timing_points[Globals.timing_section_i].uninherited == 1:
-				beat_length = timing_points[Globals.timing_section_i].beat_length
-				slider_velocity = 1.0 # Set to 1.0 if beat_length isn't a slider velocity
-			else:
-				# Set beat length to last reported beat length if timing point is inherited
-				beat_length = Globals.last_reported_beat_length
-				slider_velocity = calculate_slider_velocity(timing_points[Globals.timing_section_i].beat_length) 
+			# if timing_points[Globals.timing_section_i].uninherited == 1:
+			# 	beat_length = timing_points[Globals.timing_section_i].beat_length
+			# 	slider_velocity = 1.0 # Set to 1.0 if beat_length isn't a slider velocity
+			# else:
+			# 	# Set beat length to last reported beat length if timing point is inherited
+			# 	beat_length = Globals.last_reported_beat_length
+			# 	slider_velocity = calculate_slider_velocity(timing_points[Globals.timing_section_i].beat_length) 
 
-			var duration: float = hit_object.length / (slider_multiplier * 100.0 * slider_velocity) * beat_length
-			duration = duration + Globals.reported_latency / 1000.0
+			# var duration: float = hit_object.length / (slider_multiplier * 100.0 * slider_velocity) * beat_length
+			# duration = duration + Globals.reported_latency / 1000.0
 
-			$Playfield.add_child(slider)
+			# $Playfield.add_child(slider)
 
-			slider.initialise(duration, Globals.bps, coords, loops)
+			# slider.initialise(duration, Globals.bps, coords, loops)
 			pass
 		OsuLib.Enums.HitObject.NEW_COMBO:
 			pass
