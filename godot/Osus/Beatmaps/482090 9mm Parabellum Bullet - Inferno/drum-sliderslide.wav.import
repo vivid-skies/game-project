@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bh3sqr4tq4kmt"
+path="res://.godot/imported/drum-sliderslide.wav-af77c89275bfb6b2e0fcc0750345903d.sample"
+
+[deps]
+
+source_file="res://Osus/Beatmaps/482090 9mm Parabellum Bullet - Inferno/drum-sliderslide.wav"
+dest_files=["res://.godot/imported/drum-sliderslide.wav-af77c89275bfb6b2e0fcc0750345903d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

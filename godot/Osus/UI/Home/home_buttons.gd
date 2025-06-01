@@ -59,3 +59,5 @@ func _on_mouse_exited(button: Button) -> void:
 func _on_button_pressed(button: Button) -> void:
 	clickSound.play()
 	print(button.name + " Clicked!")
+	if button.name == "Start Button":
+		get_tree().change_scene_to_file("res://Osus/Scenes/Game.tscn")

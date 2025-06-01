@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://tlbn7mfnf2bf" path="res://Osus/Scenes/Game.gd" id="1_ncdl0"]
 [ext_resource type="PackedScene" uid="uid://tlioiq3g42q4" path="res://Osus/Scenes/Conductor.tscn" id="3_amien"]
 [ext_resource type="Script" uid="uid://bvynvcsokg8yh" path="res://Osus/UI/AudioVisualiser/music_volume_slider.gd" id="3_cpr0p"]
-[ext_resource type="AudioStream" uid="uid://brybkmb58ujx1" path="res://bin/processed/482090 9mm Parabellum Bullet - Inferno/audio.mp3" id="3_wrm7t"]
+[ext_resource type="AudioStream" uid="uid://brybkmb58ujx1" path="res://Osus/Beatmaps/482090 9mm Parabellum Bullet - Inferno/audio.mp3" id="3_wrm7t"]
 [ext_resource type="PackedScene" uid="uid://dyn6puwkqwoop" path="res://Osus/UI/FPS Counter/fps_container.tscn" id="9_kyk2p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
@@ -11,7 +11,7 @@ bg_color = Color(0, 0, 0, 0.176471)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ncdl0")
-beatmap_file = "res://bin/processed/482090 9mm Parabellum Bullet - Inferno/9mm Parabellum Bullet - Inferno (Monstrata) [Agonizing Insane].osu"
+beatmap_file = "res://Osus/Beatmaps/482090 9mm Parabellum Bullet - Inferno/9mm Parabellum Bullet - Inferno (Monstrata) [Agonizing Insane].osu"
 audio_file = ExtResource("3_wrm7t")
 
 [node name="Conductor" parent="." instance=ExtResource("3_amien")]
